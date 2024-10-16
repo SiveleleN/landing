@@ -39,11 +39,6 @@ function addName() {
         return;
     }
 
-    if (submittedNames.has(submitterInput)) {
-        alert("You have already submitted a name.");
-        return;
-    }
-
     if (names.includes(nameInput)) {
         alert("This name has already been added.");
         return;
