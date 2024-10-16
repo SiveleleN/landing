@@ -6,13 +6,14 @@ body {
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    height: auto;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 600px;
-    background: #ffffff;
+    background: #ab6f09;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -20,7 +21,7 @@ body {
 }
 
 h1 {
-    color: #007BFF;
+    color: #78e40585;
 }
 
 input[type="text"] {
@@ -34,7 +35,7 @@ input[type="text"] {
 
 button {
     padding: 10px 15px;
-    background-color: #28a745;
+    background-color: #3ddf63;
     color: white;
     border: none;
     border-radius: 5px;
@@ -61,7 +62,7 @@ li {
 }
 
 li button {
-    background-color: #007BFF;
+    background-color: #00ff95;
     color: white;
     padding: 5px 10px;
     border: none;
@@ -71,7 +72,7 @@ li button {
 }
 
 li button:hover {
-    background-color: #0056b3;
+    background-color: #08c9ac;
 }
 
 #voteList {

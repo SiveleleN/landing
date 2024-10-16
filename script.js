@@ -2,14 +2,35 @@ let names = [];
 let votes = [];
 let submitters = [];
 let votedNames = new Set();
+let submittedNames = new Set(); // Tracks people who have submitted names
 let isAdminLoggedIn = false;
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadNames(); // Load names from local storage when the page is loaded
     document.getElementById("submitNameButton").addEventListener("click", addName);
     document.getElementById("revealWinnerButton").addEventListener("click", revealWinner);
     document.getElementById("loginButton").addEventListener("click", login);
     document.getElementById("pinButton").addEventListener("click", checkPin);
 });
+
+function loadNames() {
+    const storedNames = JSON.parse(localStorage.getItem('names')) || [];
+    const storedVotes = JSON.parse(localStorage.getItem('votes')) || [];
+    const storedSubmitters = JSON.parse(localStorage.getItem('submitters')) || [];
+    
+    names = storedNames;
+    votes = storedVotes;
+    submitters = storedSubmitters;
+    submittedNames = new Set(storedSubmitters);
+    
+    updateNameList();
+}
+
+function saveNames() {
+    localStorage.setItem('names', JSON.stringify(names));
+    localStorage.setItem('votes', JSON.stringify(votes));
+    localStorage.setItem('submitters', JSON.stringify(submitters));
+}
 
 function addName() {
     const submitterInput = document.getElementById('submitterInput').value.trim();
@@ -17,6 +38,11 @@ function addName() {
     
     if (submitterInput === "" || nameInput === "") {
         alert("Please enter both your name and the name to submit.");
+        return;
+    }
+
+    if (submittedNames.has(submitterInput)) {
+        alert("You have already submitted a name.");
         return;
     }
 
@@ -28,9 +54,11 @@ function addName() {
     names.push(nameInput);
     votes.push(0);
     submitters.push(submitterInput);
+    submittedNames.add(submitterInput); // Mark this person as having submitted a name
     document.getElementById('nameInput').value = '';
     document.getElementById('submitterInput').value = '';
     updateNameList();
+    saveNames(); // Save names to local storage
 }
 
 function vote(index) {
