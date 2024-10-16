@@ -13,14 +13,11 @@
         <input type="text" id="nameInput" placeholder="Submit the Name You Want to Rule!" />
         <button id="submitNameButton">Submit Name</button>
 
-        <h2>Names</h2>
-        <ul id="nameList"></ul>
-
-        <h2>Vote Counts</h2>
-        <ul id="voteList"></ul>
-
-        <h2>Your Votes</h2>
-        <p id="voteMessage"></p>
+        <!-- Hidden names section until admin login -->
+        <div id="namesSection" style="display: none;">
+            <h2>Names</h2>
+            <ul id="nameList"></ul>
+        </div>
 
         <!-- PIN Entry Section -->
         <div id="pinSection">
@@ -39,8 +36,7 @@
             <p id="loginMessage"></p>
         </div>
 
-        <button id="revealWinnerButton" disabled>Reveal Winner</button>
-        <div id="winnerDisplay"></div>
+        <button id="revealWinnerButton" disabled>Reveal Names</button>
     </div>
 
     <script src="script.js"></script>

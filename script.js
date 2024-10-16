@@ -1,7 +1,5 @@
 let names = [];
-let votes = [];
 let submitters = [];
-let votedNames = new Set();
 let submittedNames = new Set(); // Tracks people who have submitted names
 let isAdminLoggedIn = false;
 
@@ -15,20 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function loadNames() {
     const storedNames = JSON.parse(localStorage.getItem('names')) || [];
-    const storedVotes = JSON.parse(localStorage.getItem('votes')) || [];
     const storedSubmitters = JSON.parse(localStorage.getItem('submitters')) || [];
     
     names = storedNames;
-    votes = storedVotes;
     submitters = storedSubmitters;
     submittedNames = new Set(storedSubmitters);
     
-    updateNameList();
+    if (isAdminLoggedIn) {
+        updateNameList();
+        document.getElementById('namesSection').style.display = 'block'; // Show names only if admin is logged in
+    }
 }
 
 function saveNames() {
     localStorage.setItem('names', JSON.stringify(names));
-    localStorage.setItem('votes', JSON.stringify(votes));
     localStorage.setItem('submitters', JSON.stringify(submitters));
 }
 
@@ -52,44 +50,22 @@ function addName() {
     }
 
     names.push(nameInput);
-    votes.push(0);
     submitters.push(submitterInput);
     submittedNames.add(submitterInput); // Mark this person as having submitted a name
     document.getElementById('nameInput').value = '';
     document.getElementById('submitterInput').value = '';
-    updateNameList();
     saveNames(); // Save names to local storage
-}
-
-function vote(index) {
-    const name = names[index];
-    
-    if (votedNames.has(name)) {
-        alert("You can only vote once for each name.");
-        return;
-    }
-    
-    votes[index] += 1;
-    votedNames.add(name);
-    updateNameList();
-    document.getElementById('voteMessage').innerText = `You have voted for ${name}!`;
 }
 
 function updateNameList() {
     const nameList = document.getElementById('nameList');
-    const voteList = document.getElementById('voteList');
     nameList.innerHTML = '';
-    voteList.innerHTML = '';
 
     names.forEach((name, index) => {
         nameList.innerHTML += `
             <li>
                 ${name} (submitted by ${submitters[index]})
-                <button onclick="vote(${index})">Vote</button>
             </li>
-        `;
-        voteList.innerHTML += `
-            <li>${name} - Votes: ${votes[index]}</li>
         `;
     });
 }
@@ -100,17 +76,16 @@ function revealWinner() {
         return;
     }
 
-    const maxVotes = Math.max(...votes);
-    const winners = names.filter((name, index) => votes[index] === maxVotes);
-
-    const winnerDisplay = document.getElementById('winnerDisplay');
-    if (winners.length === 1) {
-        winnerDisplay.innerHTML = `Winner: ${winners[0]} with ${maxVotes} votes! Submitted by ${submitters[names.indexOf(winners[0])]}`;
-    } else if (winners.length > 1) {
-        winnerDisplay.innerHTML = `It's a tie between: ${winners.map(winner => `${winner} (submitted by ${submitters[names.indexOf(winner)]})`).join(', ')} with ${maxVotes} votes!`;
-    } else {
-        winnerDisplay.innerHTML = "No votes have been cast yet!";
+    if (names.length === 0) {
+        document.getElementById('winnerDisplay').innerText = "No names have been submitted yet!";
+        return;
     }
+
+    const randomIndex = Math.floor(Math.random() * names.length);
+    const winnerName = names[randomIndex];
+    const winnerSubmitter = submitters[randomIndex];
+
+    document.getElementById('winnerDisplay').innerHTML = `Winner: ${winnerName} submitted by ${winnerSubmitter}!`;
 }
 
 function login() {
@@ -123,11 +98,14 @@ function login() {
     if (username === validUsername && password === validPassword) {
         isAdminLoggedIn = true;
         document.getElementById('loginMessage').innerText = "Logged in as admin.";
-        document.getElementById('revealWinnerButton').disabled = false;
+        document.getElementById('namesSection').style.display = 'block'; // Show the names section
+        document.getElementById('revealWinnerButton').style.display = 'inline-block'; // Enable reveal button
+        updateNameList();
     } else {
         isAdminLoggedIn = false;
         document.getElementById('loginMessage').innerText = "Invalid login credentials.";
-        document.getElementById('revealWinnerButton').disabled = true;
+        document.getElementById('namesSection').style.display = 'none'; // Hide the names section
+        document.getElementById('revealWinnerButton').style.display = 'none'; // Disable reveal button
     }
 
     document.getElementById('usernameInput').value = '';
