@@ -1,131 +1,175 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0; /* Light grey background */
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    color: #333; /* Dark text color */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
     max-width: 600px;
-    margin: 50px auto;
-    background: #ffffff; /* White background */
+    background: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    text-align: center; /* Center-align content for a clean look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-h1, h2 {
-    color: #333;
-    margin-bottom: 20px;
+h1 {
+    color: #007BFF;
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 15px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    border: 2px solid #007BFF; /* Blue border */
+    padding: 10px;
+    margin: 10px 0;
     border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box; /* Makes padding and border included in width */
-    transition: border-color 0.3s; /* Smooth transition for focus state */
-}
-
-input[type="text"]:focus {
-    border-color: #0056b3; /* Darker blue on focus */
-    outline: none; /* Removes default focus outline */
+    border: 1px solid #ccc;
+    width: 80%;
+    box-sizing: border-box;
 }
 
 button {
-    padding: 8px 15px; /* Smaller padding */
-    margin-top: 10px;
-    background-color: #007BFF; /* Blue background */
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
     border: none;
-    color: #fff; /* White text */
-    cursor: pointer;
     border-radius: 5px;
-    font-size: 14px; /* Smaller font size */
-    font-weight: bold;
-    display: inline-block;
-    width: auto; /* Changed width to auto for smaller size */
-    box-sizing: border-box;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #218838;
 }
 
 ul {
     list-style: none;
     padding: 0;
-    margin: 20px 0;
 }
 
 li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: #f9f9f9; /* Light background */
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     margin-bottom: 10px;
-    border: 1px solid #ddd; /* Light border */
     border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-li:hover {
-    background-color: #f1f1f1; /* Lighter background on hover */
-}
-
-#nameList li button {
-    padding: 5px 10px; /* Smaller padding for vote buttons */
-    font-size: 12px; /* Smaller font size */
-    background-color: #28a745; /* Green button for voting */
-    border-radius: 5px;
+li button {
+    background-color: #007BFF;
     color: white;
+    padding: 5px 10px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    margin-left: 10px;
 }
 
-#nameList li button:hover {
-    background-color: #218838; /* Darker green for vote button on hover */
+li button:hover {
+    background-color: #0056b3;
+}
+
+#voteList {
+    margin-top: 20px;
+}
+
+#voteMessage {
+    color: #ff6600;
+    font-weight: bold;
 }
 
 #winnerDisplay {
-    margin-top: 30px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #e74c3c; /* Red for winner display */
+    margin-top: 20px;
+    font-size: 18px;
+    color: #e74c3c;
 }
-
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
+body {
+    background: -webkit-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+    background: -moz-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+  background: -ms-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));  
+    background: -o-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1)); 
+    background: radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+  }
+  
+  #container {
+    width: 850px;
+    height: 510px;
+    margin: 100px auto 40px;
+    text-align: center;
+  }
+  
+  #game {
+    background: black;
+    margin: 20px auto 40px;
+    position: relative;
+    border: 15px solid rgba(50,50,50,1);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5), 0 -5px 20px rgba(0,0,0,.3);
+  }
+  
+  .top-controls {
+    position: relative;
+    margin: 0 auto;
+    min-width: 300px;
+    height: 50px;
+    background: rgba(60,60,60,1);
+    position: absolute;
+    text-align: left;
+    padding-bottom: 10px;
+    top: -75px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-right: 3px solid rgba(50,50,50,1);
+    border-left: 3px solid rgba(50,50,50,1);
+    border-top: 3px solid rgba(50,50,50,1);
+    box-shadow: 0 -5px 20px rgba(0,0,0,.3);
+    .control-button {
+      background: rgba(20,20,20, 1);
+      color: white;
+      font-size: 1.1rem;
+      position: relative;
+      display: inline-block;
+      top: 12px;
+      left: 10px;
+      margin: 0 3px;
+      padding: 10px 15px;
+      border: 1px solid rgba(0,140,130, 1);
+      border-radius: 10px;
+      cursor: pointer;
+      &:focus {
+        outline: 3px solid rgba(0,140,130, 1);
+        border-radius: 10px;
+      }
     }
-
-    h1, h2 {
-        font-size: 24px;
+    .generations {
+      position: relative;
+      left: 255px;
+      bottom: 20px;
+      color: rgba(230, 230, 230, 1);
+      font-size: 1.3rem;
     }
-
-    input[type="text"], button {
-        font-size: 14px;
-    }
-
-    li {
-        font-size: 14px;
-    }
-
-    #nameList li button {
-        font-size: 12px;
-    }
-
-    #winnerDisplay {
-        font-size: 18px;
-    }
-}
+  }
+  
+  h3 {
+    position: absolute;
+  }
+  
+  .person {
+    width: 14px;
+    height: 14px;
+    box-sizing: border-box;
+    border: 1px solid rgba(40,40,40,1);
+    display: block;
+    float: left;
+    margin-top: 0;
+    margin: 0;
+  }
+  .active {
+      background: rgba(130, 30, 40, 1);
+  }
+  
