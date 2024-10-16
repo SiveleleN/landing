@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>NameSpire</h1>
+        <input type="text" id="nameInput" placeholder="Enter a name" />
+        <button onclick="addName()">Submit Name</button>
+
+        <ul id="nameList"></ul>
+
+        <h2>Vote Counts</h2>
+        <ul id="voteList"></ul>
+        <button onclick="revealWinner()">Reveal Winner</button>
+        <div id="winnerDisplay"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

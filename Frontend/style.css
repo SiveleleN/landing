@@ -1,0 +1,131 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0; /* Light grey background */
+    margin: 0;
+    padding: 0;
+    color: #333; /* Dark text color */
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    text-align: center; /* Center-align content for a clean look */
+}
+
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #007BFF; /* Blue border */
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Makes padding and border included in width */
+    transition: border-color 0.3s; /* Smooth transition for focus state */
+}
+
+input[type="text"]:focus {
+    border-color: #0056b3; /* Darker blue on focus */
+    outline: none; /* Removes default focus outline */
+}
+
+button {
+    padding: 8px 15px; /* Smaller padding */
+    margin-top: 10px;
+    background-color: #007BFF; /* Blue background */
+    border: none;
+    color: #fff; /* White text */
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px; /* Smaller font size */
+    font-weight: bold;
+    display: inline-block;
+    width: auto; /* Changed width to auto for smaller size */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f9f9f9; /* Light background */
+    margin-bottom: 10px;
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+li:hover {
+    background-color: #f1f1f1; /* Lighter background on hover */
+}
+
+#nameList li button {
+    padding: 5px 10px; /* Smaller padding for vote buttons */
+    font-size: 12px; /* Smaller font size */
+    background-color: #28a745; /* Green button for voting */
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+#nameList li button:hover {
+    background-color: #218838; /* Darker green for vote button on hover */
+}
+
+#winnerDisplay {
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #e74c3c; /* Red for winner display */
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1, h2 {
+        font-size: 24px;
+    }
+
+    input[type="text"], button {
+        font-size: 14px;
+    }
+
+    li {
+        font-size: 14px;
+    }
+
+    #nameList li button {
+        font-size: 12px;
+    }
+
+    #winnerDisplay {
+        font-size: 18px;
+    }
+}
