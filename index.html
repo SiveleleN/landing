@@ -22,7 +22,24 @@
         <h2>Your Votes</h2>
         <p id="voteMessage"></p>
 
-        <button id="revealWinnerButton">Reveal Winner</button>
+        <!-- PIN Entry Section -->
+        <div id="pinSection">
+            <h2>Enter PIN for Admin Access</h2>
+            <input type="password" id="pinInput" placeholder="Enter PIN">
+            <button id="pinButton">Submit PIN</button>
+            <p id="pinMessage"></p>
+        </div>
+
+        <!-- Login Section (hidden by default) -->
+        <div id="loginSection" style="display: none;">
+            <h2>Admin Login</h2>
+            <input type="text" id="usernameInput" placeholder="Enter username">
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button id="loginButton">Login</button>
+            <p id="loginMessage"></p>
+        </div>
+
+        <button id="revealWinnerButton" disabled>Reveal Winner</button>
         <div id="winnerDisplay"></div>
     </div>
 

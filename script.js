@@ -1,12 +1,14 @@
 let names = [];
 let votes = [];
-let submitters = []; // Array to store submitter names
-let votedNames = new Set(); // Tracks names that the user has voted for
+let submitters = [];
+let votedNames = new Set();
+let isAdminLoggedIn = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Add event listeners
     document.getElementById("submitNameButton").addEventListener("click", addName);
     document.getElementById("revealWinnerButton").addEventListener("click", revealWinner);
+    document.getElementById("loginButton").addEventListener("click", login);
+    document.getElementById("pinButton").addEventListener("click", checkPin);
 });
 
 function addName() {
@@ -24,8 +26,8 @@ function addName() {
     }
 
     names.push(nameInput);
-    votes.push(0); // Initialize votes for the new name
-    submitters.push(submitterInput); // Save the submitter's name
+    votes.push(0);
+    submitters.push(submitterInput);
     document.getElementById('nameInput').value = '';
     document.getElementById('submitterInput').value = '';
     updateNameList();
@@ -40,8 +42,8 @@ function vote(index) {
     }
     
     votes[index] += 1;
-    votedNames.add(name); // Mark this name as voted for
-    updateNameList(); // Update the name and vote list immediately after voting
+    votedNames.add(name);
+    updateNameList();
     document.getElementById('voteMessage').innerText = `You have voted for ${name}!`;
 }
 
@@ -65,6 +67,11 @@ function updateNameList() {
 }
 
 function revealWinner() {
+    if (!isAdminLoggedIn) {
+        alert("Only logged-in admins can reveal the winner.");
+        return;
+    }
+
     const maxVotes = Math.max(...votes);
     const winners = names.filter((name, index) => votes[index] === maxVotes);
 
@@ -76,4 +83,40 @@ function revealWinner() {
     } else {
         winnerDisplay.innerHTML = "No votes have been cast yet!";
     }
+}
+
+function login() {
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+
+    const validUsername = "admin";
+    const validPassword = "password123";
+
+    if (username === validUsername && password === validPassword) {
+        isAdminLoggedIn = true;
+        document.getElementById('loginMessage').innerText = "Logged in as admin.";
+        document.getElementById('revealWinnerButton').disabled = false;
+    } else {
+        isAdminLoggedIn = false;
+        document.getElementById('loginMessage').innerText = "Invalid login credentials.";
+        document.getElementById('revealWinnerButton').disabled = true;
+    }
+
+    document.getElementById('usernameInput').value = '';
+    document.getElementById('passwordInput').value = '';
+}
+
+function checkPin() {
+    const pin = document.getElementById('pinInput').value;
+
+    const validPin = "1234"; // You can change the PIN to whatever you prefer
+
+    if (pin === validPin) {
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('pinMessage').innerText = "PIN accepted. Please log in.";
+    } else {
+        document.getElementById('pinMessage').innerText = "Invalid PIN.";
+    }
+
+    document.getElementById('pinInput').value = '';
 }
