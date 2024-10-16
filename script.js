@@ -93,7 +93,7 @@ function login() {
     const password = document.getElementById('passwordInput').value;
 
     const validUsername = "admin";
-    const validPassword = "password123";
+    const validPassword = "bounty1234";
 
     if (username === validUsername && password === validPassword) {
         isAdminLoggedIn = true;
@@ -115,7 +115,7 @@ function login() {
 function checkPin() {
     const pin = document.getElementById('pinInput').value;
 
-    const validPin = "1234"; // You can change the PIN to whatever you prefer
+    const validPin = "4321"; // You can change the PIN to whatever you prefer
 
     if (pin === validPin) {
         document.getElementById('loginSection').style.display = 'block';
