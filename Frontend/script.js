@@ -1,5 +1,6 @@
 let names = [];
 let votes = [];
+let submitters = []; // Array to store submitter names
 let votedNames = new Set(); // Tracks names that the user has voted for
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,10 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function addName() {
+    const submitterInput = document.getElementById('submitterInput').value.trim();
     const nameInput = document.getElementById('nameInput').value.trim();
     
-    if (nameInput === "") {
-        alert("Please enter a valid name.");
+    if (submitterInput === "" || nameInput === "") {
+        alert("Please enter both your name and the name to submit.");
         return;
     }
 
@@ -23,7 +25,9 @@ function addName() {
 
     names.push(nameInput);
     votes.push(0); // Initialize votes for the new name
+    submitters.push(submitterInput); // Save the submitter's name
     document.getElementById('nameInput').value = '';
+    document.getElementById('submitterInput').value = '';
     updateNameList();
 }
 
@@ -50,7 +54,7 @@ function updateNameList() {
     names.forEach((name, index) => {
         nameList.innerHTML += `
             <li>
-                ${name}
+                ${name} (submitted by ${submitters[index]})
                 <button onclick="vote(${index})">Vote</button>
             </li>
         `;
@@ -66,9 +70,9 @@ function revealWinner() {
 
     const winnerDisplay = document.getElementById('winnerDisplay');
     if (winners.length === 1) {
-        winnerDisplay.innerHTML = `Winner: ${winners[0]} with ${maxVotes} votes!`;
+        winnerDisplay.innerHTML = `Winner: ${winners[0]} with ${maxVotes} votes! Submitted by ${submitters[names.indexOf(winners[0])]}`;
     } else if (winners.length > 1) {
-        winnerDisplay.innerHTML = `It's a tie between: ${winners.join(', ')} with ${maxVotes} votes!`;
+        winnerDisplay.innerHTML = `It's a tie between: ${winners.map(winner => `${winner} (submitted by ${submitters[names.indexOf(winner)]})`).join(', ')} with ${maxVotes} votes!`;
     } else {
         winnerDisplay.innerHTML = "No votes have been cast yet!";
     }
