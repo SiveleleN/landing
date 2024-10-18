@@ -1,58 +1,62 @@
 let names = [];
 let submitters = [];
-let submittedNames = new Set(); // Tracks people who have submitted names
 let isAdminLoggedIn = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadNames(); // Load names from local storage when the page is loaded
+    loadNames(); // Load names from backend when the page is loaded
+
     document.getElementById("submitNameButton").addEventListener("click", addName);
     document.getElementById("revealWinnerButton").addEventListener("click", revealWinner);
     document.getElementById("loginButton").addEventListener("click", login);
     document.getElementById("pinButton").addEventListener("click", checkPin);
 });
 
+// Function to load names from the backend
 function loadNames() {
-    const storedNames = JSON.parse(localStorage.getItem('names')) || [];
-    const storedSubmitters = JSON.parse(localStorage.getItem('submitters')) || [];
+    fetch('http://localhost:3000/names')
+        .then(response => response.json())
+        .then(data => {
+            names = data.names;
+            submitters = data.submitters;
+            updateNameList();
 
-    names = storedNames;
-    submitters = storedSubmitters;
-    submittedNames = new Set(storedSubmitters);
-
-    if (isAdminLoggedIn) {
-        updateNameList();
-        document.getElementById('namesSection').style.display = 'block'; // Show names only if admin is logged in
-    }
+            // Show names only if admin is logged in
+            if (isAdminLoggedIn) {
+                document.getElementById('namesSection').style.display = 'block';
+            }
+        })
+        .catch(error => console.error("Error fetching names:", error));
 }
 
-function saveNames() {
-    localStorage.setItem('names', JSON.stringify(names));
-    localStorage.setItem('submitters', JSON.stringify(submitters));
-}
-
+// Function to add a new name (POST to backend)
 function addName() {
     const submitterInput = document.getElementById('submitterInput').value.trim();
     const nameInput = document.getElementById('nameInput').value.trim();
-    
+
     if (submitterInput === "" || nameInput === "") {
         alert("Please enter both your name and the name to submit.");
         return;
     }
 
-    if (names.includes(nameInput)) {
-        alert("This name has already been added.");
-        return;
-    }
-
-    names.push(nameInput);
-    submitters.push(submitterInput);
-    submittedNames.add(submitterInput); // Mark this person as having submitted a name
-    document.getElementById('nameInput').value = '';
-    document.getElementById('submitterInput').value = '';
-    saveNames(); // Save names to local storage
-    updateNameList(); // Update the list to reflect changes
+    // Send the data to the backend
+    fetch('http://localhost:3000/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ submitter: submitterInput, name: nameInput }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadNames();  // Refresh the list after a successful submission
+        } else {
+            alert(data.message);
+        }
+    });
 }
 
+// Function to update the list of names (render on frontend)
 function updateNameList() {
     const nameList = document.getElementById('nameList');
     nameList.innerHTML = ''; // Clear the list before re-rendering
@@ -66,6 +70,7 @@ function updateNameList() {
     });
 }
 
+// Function to reveal a random winner
 function revealWinner() {
     if (!isAdminLoggedIn) {
         alert("Only logged-in admins can reveal the winner.");
@@ -84,6 +89,7 @@ function revealWinner() {
     document.getElementById('winnerDisplay').innerHTML = `Winner: ${winnerName} submitted by ${winnerSubmitter}!`;
 }
 
+// Function for admin login
 function login() {
     const username = document.getElementById('usernameInput').value;
     const password = document.getElementById('passwordInput').value;
@@ -95,19 +101,20 @@ function login() {
         isAdminLoggedIn = true;
         document.getElementById('loginMessage').innerText = "Logged in as admin.";
         document.getElementById('namesSection').style.display = 'block'; // Show the names section
-        document.getElementById('revealWinnerButton').style.display = 'inline-block'; // Enable reveal button
+        document.getElementById('revealWinnerButton').disabled = false; // Enable reveal button
         updateNameList();
     } else {
         isAdminLoggedIn = false;
         document.getElementById('loginMessage').innerText = "Invalid login credentials.";
         document.getElementById('namesSection').style.display = 'none'; // Hide the names section
-        document.getElementById('revealWinnerButton').style.display = 'none'; // Disable reveal button
+        document.getElementById('revealWinnerButton').disabled = true; // Disable reveal button
     }
 
     document.getElementById('usernameInput').value = '';
     document.getElementById('passwordInput').value = '';
 }
 
+// Function to check the PIN
 function checkPin() {
     const pin = document.getElementById('pinInput').value;
 
