@@ -50,9 +50,14 @@ function addName() {
     .then(data => {
         if (data.success) {
             loadNames();  // Refresh the list after a successful submission
+            alert(data.message); // Display success message
         } else {
-            alert(data.message);
+            alert(data.message); // Display error message
         }
+    })
+    .catch(error => {
+        console.error("Error submitting name:", error);
+        alert("There was an error submitting the name. Please try again later.");
     });
 }
 

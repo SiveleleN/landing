@@ -3,7 +3,7 @@ const cors = require('cors');  // Add CORS middleware
 
 const app = express();
 
-// Enable CORS for all routes (You can specify the origin if needed, e.g. app.use(cors({ origin: 'http://localhost:8080' }));
+// Enable CORS for all routes
 app.use(cors());
 
 app.use(express.json()); // For parsing POST request bodies
