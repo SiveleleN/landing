@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadNames() {
     const storedNames = JSON.parse(localStorage.getItem('names')) || [];
     const storedSubmitters = JSON.parse(localStorage.getItem('submitters')) || [];
-    
+
     names = storedNames;
     submitters = storedSubmitters;
     submittedNames = new Set(storedSubmitters);
-    
+
     if (isAdminLoggedIn) {
         updateNameList();
         document.getElementById('namesSection').style.display = 'block'; // Show names only if admin is logged in
@@ -50,11 +50,12 @@ function addName() {
     document.getElementById('nameInput').value = '';
     document.getElementById('submitterInput').value = '';
     saveNames(); // Save names to local storage
+    updateNameList(); // Update the list to reflect changes
 }
 
 function updateNameList() {
     const nameList = document.getElementById('nameList');
-    nameList.innerHTML = '';
+    nameList.innerHTML = ''; // Clear the list before re-rendering
 
     names.forEach((name, index) => {
         nameList.innerHTML += `
