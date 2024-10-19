@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to load names from the backend
 function loadNames() {
-    fetch('https://gameapp-mu.vercel.app/names') // Updated with your Vercel URL
+    fetch('http://localhost:3000/names') // Update this URL to your backend server (e.g., if deployed)
         .then(response => response.json())
         .then(data => {
             names = data.names;
@@ -39,7 +39,7 @@ function addName() {
     }
 
     // Send the data to the backend
-    fetch('https://gameapp-mu.vercel.app/submit', { // Updated with your Vercel URL
+    fetch('http://localhost:3000/submit', { // Update this URL to your backend server (e.g., if deployed)
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
