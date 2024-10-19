@@ -1,176 +1,245 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  min-height: 100vh;
 }
 
 .container {
-    max-width: 600px;
-    background: #ab6f09;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  max-width: 600px;
+  background: #ab6f09;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 h1 {
-    color: #78e40585;
+  color: #78e40585;
 }
 
 input[type="text"] {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 80%;
-    box-sizing: border-box;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 80%;
+  box-sizing: border-box;
 }
 
 button {
-    padding: 10px 15px;
-    background-color: #3ddf63;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 16px;
+  padding: 10px 15px;
+  background-color: #3ddf63;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 button:hover {
-    background-color: #218838;
+  background-color: #218838;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 li {
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 li button {
-    background-color: #00ff95;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
+  background-color: #00ff95;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 li button:hover {
-    background-color: #08c9ac;
+  background-color: #08c9ac;
 }
 
 #voteList {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 #voteMessage {
-    color: #ff6600;
-    font-weight: bold;
+  color: #ff6600;
+  font-weight: bold;
 }
 
 #winnerDisplay {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #e74c3c;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #e74c3c;
 }
+
 body {
-    background: -webkit-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
-    background: -moz-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+  background: -webkit-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+  background: -moz-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
   background: -ms-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));  
-    background: -o-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1)); 
-    background: radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+  background: -o-radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1)); 
+  background: radial-gradient(center, circle, rgba(0, 150, 150, 1) 20%, rgba(0,0,0,1));
+}
+
+#container {
+  width: 850px;
+  height: 510px;
+  margin: 100px auto 40px;
+  text-align: center;
+}
+
+#game {
+  background: black;
+  margin: 20px auto 40px;
+  position: relative;
+  border: 15px solid rgba(50,50,50,1);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.5), 0 -5px 20px rgba(0,0,0,.3);
+}
+
+.top-controls {
+  position: relative;
+  margin: 0 auto;
+  min-width: 300px;
+  height: 50px;
+  background: rgba(60,60,60,1);
+  position: absolute;
+  text-align: left;
+  padding-bottom: 10px;
+  top: -75px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-right: 3px solid rgba(50,50,50,1);
+  border-left: 3px solid rgba(50,50,50,1);
+  border-top: 3px solid rgba(50,50,50,1);
+  box-shadow: 0 -5px 20px rgba(0,0,0,.3);
+}
+
+.control-button {
+  background: rgba(20,20,20, 1);
+  color: white;
+  font-size: 1.1rem;
+  position: relative;
+  display: inline-block;
+  top: 12px;
+  left: 10px;
+  margin: 0 3px;
+  padding: 10px 15px;
+  border: 1px solid rgba(0,140,130, 1);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.control-button:focus {
+  outline: 3px solid rgba(0,140,130, 1);
+  border-radius: 10px;
+}
+
+.generations {
+  position: relative;
+  left: 255px;
+  bottom: 20px;
+  color: rgba(230, 230, 230, 1);
+  font-size: 1.3rem;
+}
+
+h3 {
+  position: absolute;
+}
+
+.person {
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(40,40,40,1);
+  display: block;
+  float: left;
+  margin-top: 0;
+  margin: 0;
+}
+
+.active {
+  background: rgba(130, 30, 40, 1);
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  body {
+      flex-direction: column;
+      padding: 20px;
   }
-  
+
+  .container {
+      width: 100%;
+      padding: 15px;
+  }
+
+  input[type="text"],
+  button {
+      width: 100%;
+      padding: 12px;
+  }
+
   #container {
-    width: 850px;
-    height: 510px;
-    margin: 100px auto 40px;
-    text-align: center;
+      width: 100%;
+      height: auto; /* Adjust height for better responsiveness */
+      margin: 20px 0;
   }
-  
+
   #game {
-    background: black;
-    margin: 20px auto 40px;
-    position: relative;
-    border: 15px solid rgba(50,50,50,1);
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.5), 0 -5px 20px rgba(0,0,0,.3);
+      width: 100%;
+      height: auto; /* Adjust height for better responsiveness */
+      border: 10px solid rgba(50,50,50,1);
   }
-  
+
   .top-controls {
-    position: relative;
-    margin: 0 auto;
-    min-width: 300px;
-    height: 50px;
-    background: rgba(60,60,60,1);
-    position: absolute;
-    text-align: left;
-    padding-bottom: 10px;
-    top: -75px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-right: 3px solid rgba(50,50,50,1);
-    border-left: 3px solid rgba(50,50,50,1);
-    border-top: 3px solid rgba(50,50,50,1);
-    box-shadow: 0 -5px 20px rgba(0,0,0,.3);
-    .control-button {
-      background: rgba(20,20,20, 1);
-      color: white;
-      font-size: 1.1rem;
-      position: relative;
-      display: inline-block;
-      top: 12px;
+      min-width: 100%;
+      height: auto;
+      top: 0; /* Position at the top */
+  }
+
+  .generations {
       left: 10px;
-      margin: 0 3px;
-      padding: 10px 15px;
-      border: 1px solid rgba(0,140,130, 1);
-      border-radius: 10px;
-      cursor: pointer;
-      &:focus {
-        outline: 3px solid rgba(0,140,130, 1);
-        border-radius: 10px;
-      }
-    }
-    .generations {
-      position: relative;
-      left: 255px;
-      bottom: 20px;
-      color: rgba(230, 230, 230, 1);
-      font-size: 1.3rem;
-    }
+      bottom: 0; /* Adjust position */
   }
-  
+
   h3 {
-    position: absolute;
+      font-size: 1.5rem; /* Adjust font size */
   }
-  
+
   .person {
-    width: 14px;
-    height: 14px;
-    box-sizing: border-box;
-    border: 1px solid rgba(40,40,40,1);
-    display: block;
-    float: left;
-    margin-top: 0;
-    margin: 0;
+      width: 10px; /* Adjust size for smaller screens */
+      height: 10px;
   }
-  .active {
-      background: rgba(130, 30, 40, 1);
+}
+
+@media (max-width: 480px) {
+  h1 {
+      font-size: 1.5rem; /* Smaller heading for small screens */
   }
-  
+
+  button {
+      font-size: 14px; /* Adjust button font size */
+  }
+
+  li {
+      font-size: 14px; /* Adjust list item font size */
+  }
+}
