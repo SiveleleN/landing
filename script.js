@@ -1,36 +1,34 @@
-let names = [];
-let submitters = [];
-let isAdminLoggedIn = false;
-
+// Event listeners for buttons
 document.addEventListener("DOMContentLoaded", () => {
-    loadNames(); // Load names from backend when the page is loaded
-
-    document.getElementById("submitNameButton").addEventListener("click", addName);
-    document.getElementById("revealWinnerButton").addEventListener("click", revealWinner);
     document.getElementById("loginButton").addEventListener("click", login);
     document.getElementById("pinButton").addEventListener("click", checkPin);
 });
 
 // Function to load names from the backend
 function loadNames() {
-    fetch('https://gameapp-mu.vercel.app/names')
+    fetch('https://gameapp-mu.vercel.app/names')  // Ensure the correct API URL
         .then(response => {
+            // Log the response for debugging
+            console.log("Response status: ", response.status);
             if (!response.ok) {
                 throw new Error('Failed to load names');
             }
-            return response.json();
+            return response.json();  // Return the response as JSON
         })
         .then(data => {
+            console.log("Data received: ", data);  // Log data for debugging
             names = data.names || [];
             submitters = data.submitters || [];
-            updateNameList();
+            updateNameList();  // Function that updates the DOM with names
 
             // Show names only if admin is logged in
-            if (isAdminLoggedIn) {
-                document.getElementById('namesSection').style.display = 'block';
+            if (isAdminLoggedIn()) {
+                document.getElementById('nameSection').style.display = 'block';
             }
         })
-        .catch(error => console.error("Error fetching names:", error));
+        .catch(error => {
+            console.error("Error fetching names:", error.message);
+        });
 }
 
 // Function to add a new name (POST to backend)
@@ -38,109 +36,65 @@ function addName() {
     const submitterInput = document.getElementById('submitterInput').value.trim();
     const nameInput = document.getElementById('nameInput').value.trim();
 
+    // Check if inputs are empty
     if (submitterInput === "" || nameInput === "") {
-        alert("Please enter both your name and the name to submit.");
+        alert("Both submitter and name fields are required.");
         return;
     }
 
-    // Send the data to the backend
-    fetch('https://gameapp-mu.vercel.app/submit', {
+    const newName = {
+        submitter: submitterInput,
+        name: nameInput
+    };
+
+    fetch('https://gameapp-mu.vercel.app/names', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ submitter: submitterInput, name: nameInput }),
+        body: JSON.stringify(newName)
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Error submitting name');
+            throw new Error('Failed to add name');
         }
-        return response.json();
+        return response.json();  // Parse the JSON response
     })
     .then(data => {
-        if (data.success) {
-            loadNames();  // Refresh the list after a successful submission
-            alert(data.message); // Display success message
-        } else {
-            alert(data.message); // Display error message
-        }
+        console.log("Name added successfully: ", data);
+        loadNames();  // Reload the list after adding a new name
     })
     .catch(error => {
-        console.error("Error submitting name:", error);
-        alert("There was an error submitting the name. Please try again later.");
+        console.error("Error adding name:", error.message);
     });
 }
 
-// Function to update the list of names (render on frontend)
+// Function to check if the admin is logged in
+function isAdminLoggedIn() {
+    // Assuming this checks admin login state
+    // Implement the logic to verify if the user is an admin
+    return true;  // Temporary assumption for the example
+}
+
+// Function to update the name list in the UI
 function updateNameList() {
     const nameList = document.getElementById('nameList');
-    nameList.innerHTML = ''; // Clear the list before re-rendering
+    nameList.innerHTML = '';  // Clear the current list
 
-    names.forEach((name, index) => {
-        nameList.innerHTML += `
-            <li>
-                ${name} (submitted by ${submitters[index]})
-            </li>
-        `;
+    // Assuming 'names' is a global array storing names
+    names.forEach(name => {
+        const listItem = document.createElement('li');
+        listItem.textContent = name;
+        nameList.appendChild(listItem);
     });
 }
 
-// Function to reveal a random winner
-function revealWinner() {
-    if (!isAdminLoggedIn) {
-        alert("Only logged-in admins can reveal the winner.");
-        return;
-    }
-
-    if (names.length === 0) {
-        document.getElementById('winnerDisplay').innerText = "No names have been submitted yet!";
-        return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * names.length);
-    const winnerName = names[randomIndex];
-    const winnerSubmitter = submitters[randomIndex];
-
-    document.getElementById('winnerDisplay').innerHTML = `Winner: ${winnerName} submitted by ${winnerSubmitter}!`;
-}
-
-// Function for admin login
+// Function to handle the login logic
 function login() {
-    const username = document.getElementById('usernameInput').value;
-    const password = document.getElementById('passwordInput').value;
-
-    const validUsername = "admin";
-    const validPassword = "bounty1234";
-
-    if (username === validUsername && password === validPassword) {
-        isAdminLoggedIn = true;
-        document.getElementById('loginMessage').innerText = "Logged in as admin.";
-        document.getElementById('namesSection').style.display = 'block'; // Show the names section
-        document.getElementById('revealWinnerButton').disabled = false; // Enable reveal button
-        updateNameList();
-    } else {
-        isAdminLoggedIn = false;
-        document.getElementById('loginMessage').innerText = "Invalid login credentials.";
-        document.getElementById('namesSection').style.display = 'none'; // Hide the names section
-        document.getElementById('revealWinnerButton').disabled = true; // Disable reveal button
-    }
-
-    document.getElementById('usernameInput').value = '';
-    document.getElementById('passwordInput').value = '';
+    // Implement your login logic here
 }
 
-// Function to check the PIN
+// Function to check the pin
 function checkPin() {
-    const pin = document.getElementById('pinInput').value;
-
-    const validPin = "4321"; // You can change the PIN to whatever you prefer
-
-    if (pin === validPin) {
-        document.getElementById('loginSection').style.display = 'block';
-        document.getElementById('pinMessage').innerText = "PIN accepted. Please log in.";
-    } else {
-        document.getElementById('pinMessage').innerText = "Invalid PIN.";
-    }
-
-    document.getElementById('pinInput').value = '';
+    // Implement your pin-check logic here
 }

@@ -1,59 +1,35 @@
 const express = require('express');
-const cors = require('cors');  // Add CORS middleware
-
+const cors = require('cors');
 const app = express();
+app.use(cors());  // Allow CORS
+app.use(express.json());  // Parse JSON requests
 
-// Enable CORS for all routes
-app.use(cors());
+let names = ["Alice", "Bob", "Charlie"];  // Example names
+let submitters = ["Admin", "User", "Admin2"];  // Example submitters
 
-app.use(express.json()); // For parsing POST request bodies
-
-// Temporary storage (replace with a database later)
-let names = [];
-let submitters = [];
-
-// POST route for name submission
-app.post('/submit', (req, res) => {
-    const { submitter, name } = req.body;
-
-    // Check if both fields are provided
-    if (!submitter || !name) {
-        return res.status(400).json({
-            success: false,
-            message: "Submitter and Name are required."
-        });
-    }
-
-    // Check if the name already exists
-    if (names.includes(name)) {
-        return res.json({
-            success: false,
-            message: "Name already exists!"
-        });
-    }
-
-    // If name is new, add it
-    names.push(name);
-    submitters.push(submitter);
-
-    // Respond with success message
-    return res.json({
-        success: true,
-        message: "Name submitted successfully."
+// GET route to fetch names
+app.get('/names', (req, res) => {
+    res.json({
+        names: names,
+        submitters: submitters
     });
 });
 
-// Route to get all names (GET)
-app.get('/names', (req, res) => {
-    res.json({ names, submitters });
+// POST route to add a new name
+app.post('/names', (req, res) => {
+    const { name, submitter } = req.body;
+    
+    if (!name || !submitter) {
+        return res.status(400).json({ error: 'Name and submitter are required' });
+    }
+
+    // Add the new name and submitter
+    names.push(name);
+    submitters.push(submitter);
+
+    res.status(201).json({ message: 'Name added successfully', names, submitters });
 });
 
-// Handle non-existent favicon to avoid 404
-app.get('/favicon.ico', (req, res) => {
-    res.status(204);
-});
-
-// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
