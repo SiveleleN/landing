@@ -48,8 +48,10 @@ app.get('/names', (req, res) => {
     res.json({ names, submitters });
 });
 
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Handle non-existent favicon to avoid 404
+app.get('/favicon.ico', (req, res) => {
+    res.status(204);
 });
+
+// Start the server
+const PORT = process.env.PORT

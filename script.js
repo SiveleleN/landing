@@ -13,11 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to load names from the backend
 function loadNames() {
-    fetch('https://gameapp-mu.vercel.app/names') // Update this URL to your backend server (e.g., if deployed)
-        .then(response => response.json())
+    fetch('https://gameapp-mu.vercel.app/names')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load names');
+            }
+            return response.json();
+        })
         .then(data => {
-            names = data.names;
-            submitters = data.submitters;
+            names = data.names || [];
+            submitters = data.submitters || [];
             updateNameList();
 
             // Show names only if admin is logged in
@@ -39,14 +44,19 @@ function addName() {
     }
 
     // Send the data to the backend
-    fetch('https://gameapp-mu.vercel.app/submit', { // Update this URL to your backend server (e.g., if deployed)
+    fetch('https://gameapp-mu.vercel.app/submit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ submitter: submitterInput, name: nameInput }),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error submitting name');
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             loadNames();  // Refresh the list after a successful submission
